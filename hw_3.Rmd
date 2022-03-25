@@ -1,0 +1,58 @@
+---
+title: "H3"
+output: html_notebook
+---
+
+Please generate the following matrices (without typing every single element). You can reach 1 point per exercise, 4 points in total. 
+
+a) 1 2 3
+   4 5 6
+   7 8 9
+
+b) 1 2 3
+   2 3 4
+   5 6 7
+
+c) 1 16 49
+   4 25 64
+   9 36 81
+
+d) 9 4 7
+   2 9 8
+   3 6 9
+
+Create a RNotebook and please upload your .html file (and maybe also your .Rmd file) to Moodle until Sunday, 27th March 2022, 11:59 pm. 
+
+## Task a
+
+```{r}
+mat_a.data <- seq(9)
+mat_a <- matrix(mat_a.data,nrow=3,ncol=3,byrow=TRUE)
+mat_a
+```
+
+
+## Task b
+
+```{r}
+mat_b <- mat_a + matrix(c(rep(0,3),rep(-2,6)),nrow=3,ncol=3,byrow=TRUE)
+mat_b
+```
+
+## Task c
+
+```{r}
+mat_c <- matrix(seq(9)**2,nrow=3,ncol=3)
+mat_c
+```
+
+
+## Task d
+
+```{r}
+mat_d <- matrix(seq(9),nrow=3,ncol=3)
+diag(mat_d) <- rep(9,3)
+mat_d
+```
+
+
