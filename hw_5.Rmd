@@ -1,0 +1,53 @@
+---
+title: "H5"
+author: Dominik Pegler
+output: html_notebook
+---
+
+Please address the following questions and tasks and upload your R Notebook in html format (1 point per question):
+
+Deadline: Sunday, 24th April, 23:59 pm
+
+## Task 1: Read in the csv file from Moodle (Example data)
+
+```{r}
+file_path ="data/Example_data.csv"
+df <- read.csv(file_path)
+```
+
+## Task 2: What are the variable names?
+```{r}
+names(df)
+```
+## Task 3: What is the mean of the variable "DominancePicture"? Here you can use different approaches to get the solution!
+```{r}
+mean(df$DominancePicture, na.rm = TRUE)
+```
+
+## Task 4: Change the Trial_Id variable to a factor 
+```{r}
+df$Trial_Id <- as.factor(df$Trial_Id)
+str(df$Trial_Id)
+```
+
+
+## Task 5: Add a new column to the dataset. Use the cbind() function for this. The new column should be all numbers from 1 to 40 (extra point: numbers are in a randomized order). For help on the function call ?cbind or use Google ;)
+```{r}
+df$New_Col <- cbind(sample(seq(1:40)))
+str(df$New_Col)
+```
+
+## Task 6: The function duplicated() is used to detect duplicates (e.g. same row is twice in your data). Interpret the output in one sentence when applying it to the data set
+
+```{r}
+df[duplicated(df),]
+```
+
+Interpretation: There are no duplicate rows
+
+```{r}
+df[duplicated(df$DominancePicture),]
+```
+
+Interpretation: There are 33 rows that have non-unique values for the variable DominancePicture
+
