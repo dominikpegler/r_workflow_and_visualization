@@ -1,0 +1,46 @@
+---
+title: "Exploring example dataset"
+output: html_notebook
+---
+
+April 4 2022
+
+```{r}
+
+file_path = "~/data/psy_misc/r_workflow_and_visualization/data/Example_data.csv"
+
+df <- read.csv(file_path)
+
+```
+
+
+```{r}
+file_path
+```
+
+
+```{r}
+df
+```
+
+```{r}
+names(df)
+```
+
+```{r}
+str(df)
+```
+
+```{r}
+summary(df)
+```
+
+```{r}
+hist(df$AttractivenessPicture,breaks = seq(1,7))
+```
+
+
+```{r}
+
+```
+

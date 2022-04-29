@@ -1,7 +1,9 @@
 ---
 title: "H5"
-author: Dominik Pegler
-output: html_notebook
+author: "Dominik Pegler"
+output:
+  html_document:
+    df_print: paged
 ---
 
 Please address the following questions and tasks and upload your R Notebook in html format (1 point per question):
@@ -19,7 +21,9 @@ df <- read.csv(file_path)
 ```{r}
 names(df)
 ```
-## Task 3: What is the mean of the variable "DominancePicture"? Here you can use different approaches to get the solution!
+## Task 3: What is the mean of the variable "DominancePicture"?
+
+Here you can use different approaches to get the solution!
 ```{r}
 mean(df$DominancePicture, na.rm = TRUE)
 ```
@@ -31,13 +35,17 @@ str(df$Trial_Id)
 ```
 
 
-## Task 5: Add a new column to the dataset. Use the cbind() function for this. The new column should be all numbers from 1 to 40 (extra point: numbers are in a randomized order). For help on the function call ?cbind or use Google ;)
+## Task 5: Add a new column to the dataset
+
+Use the cbind() function for this. The new column should be all numbers from 1 to 40 (extra point: numbers are in a randomized order). For help on the function call ?cbind or use Google ;)
 ```{r}
 df$New_Col <- cbind(sample(seq(1:40)))
 str(df$New_Col)
 ```
 
-## Task 6: The function duplicated() is used to detect duplicates (e.g. same row is twice in your data). Interpret the output in one sentence when applying it to the data set
+## Task 6: The function duplicated()
+
+is used to detect duplicates (e.g. same row is twice in your data). Interpret the output in one sentence when applying it to the data set
 
 ```{r}
 df[duplicated(df),]

@@ -1,0 +1,42 @@
+---
+title: "H6"
+author: "Dominik Pegler"
+output:
+  html_document:
+    df_print: paged
+---
+
+Deadline:  Sunday, 1st May 2022, 11:59pm
+
+# 1. Create a dataset that contains three variables: variable "subject_ID" shall contain the numbers from 1 to 40 in a chronological order. Variables "rating_1" and "rating_2" shall contain rating responses from a 7-point Likert scale (think about what this means for the probable ditribution of the data...). (1 Point)
+
+```{r}
+
+```
+
+2. Create another variable ("level") based on the two rating variables. The variable should be a string variable and should contain the value "1 higher" when rating_1 is higher than rating_2, it should contain the value "2 higher" when rating_2 is higher than rating_1, and it should contain the value "equal" when both ratings contain the same value. (1 Point)
+
+```{r}
+
+```
+
+3. You want to calculate the value z from the values x and y with this formula: z = x/y. To do this calculation, you need to specify some traits for x and y. Tipp: which class is need to calculate sth? What does basic mathematic tell us about divisions? What is not possible? Put all these requirements in an if statement so that R will only conduct the calculation if these requirements are met. R should also tell you when it couldn't do the calculation! Give two examples: one, where R will calculate and one, where R will not calculate. (2 Points)
+
+```{r}
+
+```
+
+
+4. Use a for loop to calculate the sum of rating_1 and rating_2 for each subject_ID and save it in a new column "rating_sum". (1 Point)
+
+```{r}
+
+```
+
+5. Why is the approach in exercise 4 not the best? What would have been a better solution to calculate the variable? Explain and give alternative calculation. (1 Point)
+
+```{r}
+
+```
+
+

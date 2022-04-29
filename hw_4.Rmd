@@ -1,0 +1,45 @@
+---
+title: "H4"
+output: html_notebook
+---
+
+Please generate the following matrices (without typing every single element). You can reach 1 point per exercise, 5 points in total. 
+
+  1.  Create a list with a vector, two strings, and a logical value (4 elements
+  2.  Give your list elements meaningful names
+  3.  Add a 5th element to your list: a matrix with 2 rows
+  4.  create another list (anything you like)
+  5.  Combine both lists in one
+
+Please submit your .html file until Sunday, 03.04.2022, 23:59 pm.
+
+## Task 1
+
+```{r}
+l_1 <- list(c(0,1,1,0,0,0,0,0,1,0,1),"abc","xyz",TRUE)
+l_1
+```
+## Task 2
+```{r}
+names(l_1) <- c("this_vector","string_01","string_02","is_true?")
+l_1
+```
+## Task 3
+```{r}
+l_1[[length(l_1) + 1]] <- matrix(seq(4),nrow=2,ncol=2,byrow=TRUE)
+l_1
+```
+
+## Task 4
+```{r}
+l_2 <- list("ny","a","thin","you"," ","li","ke"," ","g")
+l_2
+```
+
+
+## Task 5
+```{r}
+l_comb <- append(l_1,l_2)
+l_comb
+```
+

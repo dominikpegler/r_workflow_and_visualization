@@ -1,0 +1,177 @@
+---
+title: "Data and control structures 2"
+author: "Dominik Pegler"
+date: '2022-04-25'
+output: html_document
+---
+
+##*Control structures in R*
+
+*if statements in R*
+```{r if statements in R}
+#general if statement
+# if (test_expression) {
+#   statement
+# }
+#example
+x <- 5
+
+if (x > 0) {
+  print("Positive number")
+}
+
+#general if...else statement
+# if (test_expression) {
+#   statement1
+# } else {
+#   statement2
+# }
+
+#example
+if (x >0) {
+  print("Positive number")
+} else {
+  print("Negative number")
+}
+
+
+#if...else Ladder: execute a block of code among more than two alternatives
+# if (test_expression1){
+#   statement1
+# } else if (test_expression2) {
+#   statement2
+# } else if (test_expression3) {
+#   statement3
+# } else {
+#   statement4
+# }
+
+y <- -1
+x <- -2
+#example
+if (x > 0 & y > 0) {
+  print("ONE")
+} else if (x < 0 | y < 0) {
+  print("TWO")
+} else {
+  print("THREE")
+}
+
+```
+
+```{r Exercise}
+#Create x and y, and assign both of them a single number each!
+#Now write an if statement: You want R to print the message "both low" if x and y are both smaller than 4, to print the message "x low, y high" if x is smaller than 4 and y bigger or equal than 4, to print "x high, y low" if y is smaller than 4 and x is bigger or equal 4, to print "both high" if both are bigger or equal 4, and to print "not applicable" if none of this is true (is there a case?). 
+```
+
+
+*Applying if statements to our dataframe*
+
+```{r applying if statements to dataframes}
+#read in the dataframe if you cleared your workspace
+df1 <- read.csv("data/Example_data.csv", header =TRUE, sep = ",")
+#View(df1)
+#I want to create a new variable that divides the faces into high and low groups
+
+#Problem: if...else if... can only react to one locigal vector at the same time
+
+#if Attractiveness is lower than 4, give new variable the value low. If Attractiveness is higher or equal to 4, give new variable the value high.
+
+if (df1$AttractivenessPicture < 4) {
+  df1$Group = "low"
+} else {
+  df1$Group = "high"
+}
+
+#prints this warning: "the condition has length > 1 and only the first element will be used"
+
+#use ifelse instead (the vectorized form of if....else)
+#ifelse(test, yes, no)
+
+df1$Group <- ifelse(df1$AttractivenessPicture <4, "low", "high")
+
+#Nested ifelse statements: add two more options: 4 as medium and NAs
+df1$Group <- ifelse(df1$AttractivenessPicture <4, "low",
+                    ifelse(df1$AttractivenessPicture ==4, "medium",
+                           ifelse(df1$AttractivenessPicture >=4, "high", 
+                           NA)))
+```
+
+
+*for loops in R*
+* A loop is a way to repeat a sequence of instructions under certain conditions
+* It allows you to automate parts of your code that are in need of repetitions
+* iteration over a vector
+
+```{r for statements in R}
+#general for loop
+# for (val in sequence){ #sequence is a vector, val the single values of the vector
+#   statement
+# }
+
+#example
+x <- c(2,5,3,9,8,11,6)
+for (val in x) {
+print("yes")
+}
+
+#you can also add more statements (commands) within the brackets
+for (val in x) {
+doubleval <- val*2
+print(doubleval)
+print("yes")
+}
+
+#indexing and looping
+for (i in 1:length(x)){
+doubleval <- x[i]*2
+print(doubleval)
+}
+
+```
+
+*Combining if statements and for loops in R*
+```{r combining if statements and for loops}
+for (i in 1:length(x)) {
+  ifelse(x>3, print("x"), print("y")) 
+}
+
+#for dataframes
+df1 <- read.csv("data/Example_data.csv", header =TRUE, sep = ",")
+
+for (row in 1:nrow(df1)) {
+    Attractiveness <- df1[row, "AttractivenessPicture"]
+    Averageness  <- df1[row, "AveragenessPicture"]
+
+    if(Attractiveness> 3) {
+        print(paste("With an averageness rating of", Averageness, 
+                    "the attractiveness rating was", Attractiveness))
+    }
+}
+
+#for loops over columns with col and ncol
+```
+
+*The break statement*
+* The R Break statement is very useful to exit from any loop such as For Loop, While Loop, and Repeat Loop
+* While executing these loops, if R finds the break statement inside them, it will stop executing the statements and immediately exit from the loop.
+```{r the break statement}
+x <- c(2,5,3,9,8,11,6)
+#without the break statement R will execute all commands (will also show the text, but will continue afterwards)
+for (val in x)  {
+  if (val == 9)  {
+    print(paste("Stop the loop because the defined value is reached where i=  ", val))
+  }
+  print(paste("Values are :  ", val))
+}
+
+#with break statement R will execute all commands unti the break statement is true and will then not continue anymore
+for (val in x)  {
+  if (val == 9)  {
+    print(paste("Stop the loop because the defined value is reached where i=  ", val))
+    break
+  }
+  print(paste("Values are :  ", val))
+}
+```
+
