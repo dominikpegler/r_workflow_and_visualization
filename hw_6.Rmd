@@ -8,35 +8,157 @@ output:
 
 Deadline:  Sunday, 1st May 2022, 11:59pm
 
-# 1. Create a dataset that contains three variables: variable "subject_ID" shall contain the numbers from 1 to 40 in a chronological order. Variables "rating_1" and "rating_2" shall contain rating responses from a 7-point Likert scale (think about what this means for the probable ditribution of the data...). (1 Point)
+## 1. Create a dataset ...
+
+... that contains three variables: variable "subject_ID" shall contain the numbers from 1 to 40 in a chronological order. Variables "rating_1" and "rating_2" shall contain rating responses from a 7-point Likert scale (think about what this means for the probable ditribution of the data...).  
+
+(1 Point)
 
 ```{r}
 
+N <- 40
+
+subject_ID <- seq(1:N)
+
+# for a 7-point likert scale, we assume normal distribution
+# which we simulate with the following probability distribution
+
+likert_7 = 1:7
+
+# prob_7_likert <- c(1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7) # uniform 
+prob_likert_7 <- c(0.25/7, 0.5/7, 1.5/7, 2.5/7, 1.5/7, 0.5/7, 0.25/7) # normal
+
+rating_1 <- sample(likert_7, N, replace = TRUE, prob = prob_likert_7)
+rating_2 <- sample(likert_7, N, replace = TRUE, prob = prob_likert_7)
+
+# creating the dataframe 
+df <- data.frame(subject_ID)
+df$rating_1 <- factor(rating_1, order=TRUE, levels = likert_7)
+df$rating_2 <- factor(rating_2, order=TRUE, levels = likert_7)
+head(df)
 ```
 
-2. Create another variable ("level") based on the two rating variables. The variable should be a string variable and should contain the value "1 higher" when rating_1 is higher than rating_2, it should contain the value "2 higher" when rating_2 is higher than rating_1, and it should contain the value "equal" when both ratings contain the same value. (1 Point)
+```{r}
+# import ggplot and set some defaults
+library(ggplot2)
+theme_set(theme_minimal())
+update_geom_defaults("bar", list(fill = "steelblue"))
+
+ggplot(df, aes(x=rating_1)) +
+  scale_x_discrete(drop=FALSE) +
+  geom_bar()
+```
+
+```{r}
+ggplot(df, aes(x=rating_2)) +
+  scale_x_discrete(drop=FALSE) +
+  geom_bar()
+```
+
+## 2. Create another variable ...
+
+... ("level") based on the two rating variables. The variable should be a string variable and should contain the value "1 higher" when rating_1 is higher than rating_2, it should contain the value "2 higher" when rating_2 is higher than rating_1, and it should contain the value "equal" when both ratings contain the same value.   
+
+(1 Point)
+
+```{r}
+df$level = "equal" # inital value for all rows
+df[df$rating_1 > df$rating_2, "level"] <- "1 higher"
+df[df$rating_1 < df$rating_2, "level"] <- "2 higher"
+head(df)
+```
+
+```{r}
+ggplot(df, aes(x=level)) +
+  scale_x_discrete(drop=FALSE) +
+  geom_bar()
+```
+
+## 3. Calculate ... 
+... the value z from the values x and y with this formula: z = x/y. To do this calculation, you need to specify some traits for x and y. Tipp: which class is need to calculate sth? What does basic mathematic tell us about divisions? What is not possible? Put all these requirements in an if statement so that R will only conduct the calculation if these requirements are met. R should also tell you when it couldn't do the calculation! Give two examples: one, where R will calculate and one, where R will not calculate.  
+
+(2 Points)
+
+```{r}
+# create some random x and y values with y based on the level variable (just to make some use of it :) )
+
+# x: random int values between 0 and 5 and a few missing values
+
+df$x <- sample(-1:5,N, replace = TRUE)
+df[df$x == -1, "x"] <- NA
+
+# y
+
+# these ones will get a problematic 0 as divisor
+df[df$level == "2 higher", "y"] <- 0
+# these ones will get a useful divisor (int between 1 and 5)
+df[df$level == "1 higher", "y"] <- sample(1:5, length(df[df$level == "1 higher", "y"]), replace=TRUE)
+# all the others with level == "equal" will have problematic missing values
+
+head(df)
+```
+
+
+
+```{r}
+for (i in 1:nrow(df)) {
+  x_ = df[i,"x"]
+  y_ = df[i,"y"]
+  
+  cat("Row",i,"\tx:",x_,"\ty:",y_,"\t")
+  
+  if (is.na(x_) | is.na(y_)) {
+    cat("E: Missing value(s)")
+  } else if (y_ == 0) {
+    cat("E: Division by 0")
+  } else {cat("OK")}
+  
+  cat("\n")
+}
+```
 
 ```{r}
 
+# when we create the column z, we get all possible results, for the 
+# problematic cases R will give us 'Inf' (div by 0), NA (missing
+# values) and 'NaN' (0 div by 0) 
+
+df$z <- df$x / df$y
+head(df)
 ```
 
-3. You want to calculate the value z from the values x and y with this formula: z = x/y. To do this calculation, you need to specify some traits for x and y. Tipp: which class is need to calculate sth? What does basic mathematic tell us about divisions? What is not possible? Put all these requirements in an if statement so that R will only conduct the calculation if these requirements are met. R should also tell you when it couldn't do the calculation! Give two examples: one, where R will calculate and one, where R will not calculate. (2 Points)
+
+## 4. Use a for loop ...
+... to calculate the sum of rating_1 and rating_2 for each subject_ID and save it in a new column "rating_sum".
+
+(1 Point)
 
 ```{r}
+for (i in 1:nrow(df)) {
+  
+  # includes the necessary conversion back to integers since rating_1 and rating_2
+  # are ordered factors
+  df[i,"rating_sum"] = as.numeric(df[i,"rating_1"]) + as.numeric(df[i,"rating_2"])
+
+}
+
+head(df)
 
 ```
 
+## 5. Tell ...
+... why is the approach in exercise 4 not the best? What would have been a better solution to calculate the variable? Explain and give alternative calculation.
 
-4. Use a for loop to calculate the sum of rating_1 and rating_2 for each subject_ID and save it in a new column "rating_sum". (1 Point)
+(1 Point)
+
+Answer:
+
+I would assume that for-loops in R are slow and you have to handle the exceptions (division by zero, missing values) yourself, as opposed to built-in, already optimized (c/c++ under the hood?) vector functions with standard behaviour for exceptions.
 
 ```{r}
-
+df$rating_sum_v <- as.numeric(df$rating_1) + as.numeric(df$rating_2) 
+head(df)
 ```
 
-5. Why is the approach in exercise 4 not the best? What would have been a better solution to calculate the variable? Explain and give alternative calculation. (1 Point)
-
-```{r}
-
-```
 
 
