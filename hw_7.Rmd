@@ -1,0 +1,175 @@
+---
+title: "H7"
+author: "Dominik Pegler"
+output:
+  html_document:
+    df_print: paged
+---
+
+Deadline:  Sunday, 8th May 2022, 11:59pm
+
+## 1) Implement a fizzbuzz function
+
+It takes a single number as input. If the number is divisible by three, it returns “fizz”. If it’s divisible by five it returns “buzz”. If it’s divisible by three and five, it returns “fizzbuzz”. Otherwise, it returns the number. Do check the input for being a number and stop with an error otherwise. Demonstrate the function with some test cases. Hint: The expression "((x %% 3) == 0)", checks whether x is divisible by 3 ("%%" is the modulo operator).
+
+[2 points]
+
+```{r}
+fizzbuzz <- function(x) {
+  
+  if (is.numeric(x)){
+    
+    if ((x %% 3) == 0 & (x %% 5) == 0) {
+      
+      return("fizzbuzz")
+      
+      } else if ((x %% 3) == 0) {
+      
+      return("fizz")
+      
+      } else if ((x %% 5) == 0) {
+      
+      return("buzz")
+  
+      } else {return(as.character(x))}
+  }
+  
+  else {stop("Invalid input. x must be numeric.")}
+  
+}
+
+fizzbuzz(33)
+```
+
+
+## 2) Write both.na(), a function that ...
+... takes two vectors of the same length and returns the number of positions (i.e., not the positions, only the number="Anzahl" of them) that have an NA in both vectors. Do check for same length vectors and stop with an error if the vectors have different length. Demonstrate the function with some test cases (including different length vectors and vectors without NAs).
+
+[2 points]
+```{r}
+
+both.na <- function(a, b) {
+
+if (length(a) != length(b)){
+  stop("Vectors must have same length!")
+} else {
+  
+  return(c(sum(is.na(a)),sum(is.na(b))))
+  
+}}
+
+```
+
+
+```{r}
+a <- c(1,3,3, 0)
+b <- c(1,3,4,5, NA)
+
+both.na(a, b)
+```
+
+```{r}
+a <- c(1,3,3,NA, 0)
+b <- c(1,3,NA,NA,NA)
+
+both.na(a, b)
+```
+
+```{r}
+a <- c(1,3,3,0)
+b <- c(1,3,4,5)
+
+both.na(a, b)
+```
+
+## 3) Program a function wt.mean(x,w) that ... 
+... calculates the mean of vector x weighted by the weights in vector w. Weight the values in vector x equally if w is a scalar (i.e., then it is the normal mean). Normalize the values in vector w if they do not sum up to 1. Check if the vectors are numeric and have equal length. Stop with an error otherwise. You do not have to check for NAs. Demonstrate the function with some test cases (including non-numeric vectors, a scalar value and a vector as weight, and vectors differing in length). Hint: If the weights sum up to 1, the weighted sum is already the mean and you don't have to additionly divide by n to calculate the mean.
+
+[2 points]
+
+```{r}
+
+# this solution is influenced by the discussion in the moodle board:
+# "Der gewichtete Mittelwert ist dann einfach die Summe von x mit w multipliziert"
+
+wt.mean<-function(x,w){
+  
+   if (sum(is.na(x)) + sum(is.na(w)) > 0) {
+    stop("Missing values!")
+   }
+  
+   if (length(w) == 0 | length(x) == 0) {
+    stop("Can't calculate with empty vectors!")
+  }
+  
+  if ((!is.numeric(x)) | (!is.numeric(w))){
+    stop("Input vectors need to be numeric!")
+  }
+  
+  if (length(w) == 1) {
+    return(mean(x))
+  } else {
+    w <- w / sum(w)
+    return(sum(x) * w)
+    }
+}
+
+```
+
+```{r}
+w <- c(2)
+x <- c(1,2,3,4)
+
+wt.mean(x, w)
+```
+
+
+```{r}
+w <- c(2,4)
+x <- c(1,2,3,4)
+
+wt.mean(x, w)
+```
+```{r}
+w <- c(1,2)
+x <- c(1,2,3,4)
+
+wt.mean(x, w)
+```
+```{r}
+w <- c(3,2,4)
+x <- c(1,2,3,4)
+
+wt.mean(x, w)
+```
+```{r}
+w <- c()
+x <- c(1,2,3,4)
+
+wt.mean(x, w)
+```
+```{r}
+w <- c(2,4)
+x <- c(1,"s",3,4)
+
+wt.mean(x, w)
+```
+```{r}
+w <- c(2,4)
+x <- c(1,NA,3,4)
+
+wt.mean(x, w)
+```
+
+
+## 4) Program a prime number detector function 
+
+is.prime(x) should return TRUE for prime numbers and FALSE otherwise. Do also some error checking for positive integer (natural number) input. Demonstrate the function on some prime and non-prime numbers. Hint 1: A prime number is defined by being divisible only by 1 and itself. Hint 2: The modulo oparator "%%" gives the remainder ("Rest") of a divison. Hint 3: You can check for integer values by "(ceiling(x)==floor(x))". It is sufficient if the function works for scalars.
+
+[1 bonus point for a working function; 2 bonus points if you program the funtion WITHOUT LOOPS]
+
+
+```{r}
+
+```
+

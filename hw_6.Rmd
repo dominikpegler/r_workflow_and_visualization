@@ -108,10 +108,10 @@ for (i in 1:nrow(df)) {
   cat("Row",i,"\tx:",x_,"\ty:",y_,"\t")
   
   if (is.na(x_) | is.na(y_)) {
-    cat("E: Missing value(s)")
+    cat("z: - \tMissing value(s)")
   } else if (y_ == 0) {
-    cat("E: Division by 0")
-  } else {cat("OK")}
+    cat("z: - \tDivision by 0")
+  } else {cat("z:",x_/y_)}
   
   cat("\n")
 }
