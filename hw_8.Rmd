@@ -1,0 +1,68 @@
+---
+title: "H8"
+author: "Dominik Pegler"
+output:
+  html_document:
+    df_print: paged
+---
+
+Use the example data set from homework H5 (“Example_data.csv”) and import it using: data <- read_csv("Example_data.csv")
+
+Apply the data manipulation functions of tidyverse (dplyr) you learned to:
+
+
+```{r global-options, include=FALSE}
+knitr::opts_chunk$set(error=TRUE)
+```
+
+## 1) create a subset only with the variables "AveragenessPicture" and "DominancePicture" (Hint: Use select())
+
+[1 point]
+
+```{r}
+
+```
+
+
+## 2) in the new data set from a), rename the two variables to "Averageness" and "Dominance" (Hint: Use rename())
+
+[1 point]
+
+```{r}
+
+```
+
+## 3) in the new data set from b), remove rows containing missing values (Hint: Use filter()) 
+
+[1 point]
+
+```{r}
+
+```
+
+## 4) in the new data set from c), create a new variable "Logic" that has the value TRUE if Averageness is higher than Dominance and the value FALSE if not (Hint: Use mutate()) 
+
+[1 point]
+
+```{r}
+
+```
+
+
+## 5) combine the data transformations from example a) to d) in one command line using the pipe %>% to create a new data set
+
+[1 point]
+
+```{r}
+
+```
+
+
+## 6) use the original dataset again (not the smaller subset) and create three new logical variables: The variable "SuperAttractive" should be TRUE if both AttractivenessPicture and SexualAttractivenessPicture are higher than or equal to 5, the variable "SuperSocial" should be TRUE if both SympathyPicture and TrustworthinessPicture are higher than or equal to 5, and the variable "DimDom" should be TRUE if _either_ DominancePicture or DimorphismPicture are higher than or equal to 5. Otherwise, the variables should be FALSE. (Hint: Use one mutate() command to create the three new variables.) 
+
+[1 point]
+
+```{r}
+
+```
+
