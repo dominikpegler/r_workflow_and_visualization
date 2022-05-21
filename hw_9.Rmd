@@ -17,7 +17,9 @@ update_geom_defaults("boxplot", list(fill = "steelblue", alpha = 0.4))
 ```
 
 
-## 1) Make a scatterplot of hwy (y-axis) vs. cyl (x-axis) from the dataset mpg (from tidyverse). 
+## 1) Make a scatterplot ...
+
+... of hwy (y-axis) vs. cyl (x-axis) from the dataset mpg (from tidyverse). 
 
 [1 point]
 
@@ -27,7 +29,9 @@ ggplot(mpg, aes(x = cyl, y = hwy)) + geom_point() + xlab("Number of cylinders") 
 ```
 
 
-## 2) Add jitter to the scatterplot from example (1) to avoid overplotting. 
+## 2) Add jitter ...
+
+... to the scatterplot from example (1) to avoid overplotting. 
 
 [1 point]
 
@@ -36,7 +40,9 @@ ggplot(mpg, aes(x = cyl, y = hwy)) + geom_jitter() + xlab("Number of cylinders")
 ```
 
 
-## 3) Can you avoid plotting the empty category of 7 cylinders in examples (1) and (2)? (Me: And differentiate each class by color.)
+## 3) Can you ...
+
+... avoid plotting the empty category of 7 cylinders in examples (1) and (2)? (Me: And differentiate each class by color.)
 
 [1 point]
 
@@ -45,7 +51,9 @@ ggplot(mpg, aes(x = factor(cyl), y = hwy, color = class)) + geom_jitter() + xlab
 ```
 
 
-## 4) Use boxplots for each level of cyl to visualize the distribution of hwy. (Hint: cyl should be treated as a factor using as.factor().) 
+## 4) Use boxplots ...
+
+... for each level of cyl to visualize the distribution of hwy. (Hint: cyl should be treated as a factor using as.factor().) 
 
 [1 point]
 
@@ -54,7 +62,9 @@ ggplot(mpg, aes(x = factor(cyl), y = hwy)) + geom_boxplot() + xlab("Number of cy
 
 ```
 
-## 5) Overlay the plots of example (2/3) and (4). Use a different color for the points from plot (2). (Hint: Plot the scatterplot over the boxplots to make all the points visible.)
+## 5) Overlay the plots ...
+
+... of example (2/3) and (4). Use a different color for the points from plot (2). (Hint: Plot the scatterplot over the boxplots to make all the points visible.)
 
 [1 point]
 
