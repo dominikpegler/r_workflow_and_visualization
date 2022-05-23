@@ -1,0 +1,28 @@
+---
+title: "H10 - Visualization II"
+author: "Dominik Pegler"
+output:
+  html_document:
+    df_print: paged
+---
+
+All examples should be done using ggplot2 (tidyverse). Also, in all examples, the axes should be labeled appropriately using xlab() and ylab().
+
+```{r}
+library(ggplot2, tidyverse)
+theme_set(theme_minimal())
+update_geom_defaults("bar", list(fill = "steelblue", alpha = 0.4))
+update_geom_defaults("point", list(color = "steelblue", alpha = 0.4, size = 2.6))
+update_geom_defaults("boxplot", list(fill = "steelblue", alpha = 0.4))
+```
+
+
+## 1) Make a bar plot ...
+
+... of mean fuel efficieny (hwy) over the levels of cyl. In addition: dodge the bar plots according to the variable class. Color code the dodged bar plots  (according to class) and and use a legend for the color code. (Hint: Use stat="summary", fun="mean" in geom_bar, or possibly "fun" instead of "fun.y" depending on your version of ggplot). Additional tip: color = "black" makes the borders of the bars more salient. 
+
+[1 point]
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = as.factor(cyl), y = hwy)) + geom_bar(stat="summary", fun="mean", color="black") + xlab("Number of cylinders") + ylab("miles per gallon (highway)")
+```
