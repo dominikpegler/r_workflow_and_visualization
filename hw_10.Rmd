@@ -6,7 +6,7 @@ output:
     df_print: paged
 ---
 
-All examples should be done using ggplot2 (tidyverse). Also, in all examples, the axes should be labeled appropriately using xlab() and ylab().
+All examples should be done using ggplot2 (tidyverse). Also, in all examples, the axes should be labeled appropriately using xlab(), ylab() and labs().
 
 ```{r}
 library(ggplot2, tidyverse)
@@ -19,10 +19,44 @@ update_geom_defaults("boxplot", list(fill = "steelblue", alpha = 0.4))
 
 ## 1) Make a bar plot ...
 
-... of mean fuel efficieny (hwy) over the levels of cyl. In addition: dodge the bar plots according to the variable class. Color code the dodged bar plots  (according to class) and and use a legend for the color code. (Hint: Use stat="summary", fun="mean" in geom_bar, or possibly "fun" instead of "fun.y" depending on your version of ggplot). Additional tip: color = "black" makes the borders of the bars more salient. 
+... of mean fuel efficiency (hwy) over the levels of class from the dataset mpg. In addition, "dodge" the bar plots according to the variable cyl. Color code the dodged bar plots (according to cyl) and use a legend for the color codes. (Hint: Use 'stat="summary",fun.y="mean"' in geom_bar. Or possibly "fun" instead of "fun.y" depending on your version of ggplot. Additional tip: It might be necessary to both treat cyl and class as a factor.) [2 points]
+
+[2 points]
+
+```{r}
+mpg$cyl <- factor(mpg$cyl)
+
+snbpac <- ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + geom_bar(aes(fill = cyl), color = "grey", stat="summary", fun="mean", position = "dodge") + xlab("Class") + ylab("Miles per gallon (Highway)") + labs(fill = "Cylinders", title = "Super nice barplot about cars")
+
+snbpac
+```
+
+## 2) Apply the colors ... 
+
+... from library(viridis) to the bar plot from example (1) using ggplot with "scale_fill_viridis". (Hint: Think about how you have to set the parameter "discrete" in "scale_fill_viridis".)
 
 [1 point]
 
 ```{r}
-ggplot(data = mpg, mapping = aes(x = as.factor(cyl), y = hwy)) + geom_bar(aes(fill = class), color = "grey", stat="summary", fun="mean", position = "dodge") + xlab("Number of cylinders") + ylab("miles per gallon (highway)")
+library(viridis)
+
+snbpac + scale_fill_viridis(discrete = TRUE)
+
 ```
+
+## 3) Reverse the order ...
+
+... of the dodged bars (i.e., the levels of cyl) from example (2).
+
+[1 point]
+
+
+```{r}
+mpg$cyl_rev <- factor(mpg$cyl, levels=rev(levels(mpg$cyl)))
+
+snvbpacwrcf <- ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + geom_bar(aes(fill = cyl_rev), color = "grey", stat="summary", fun="mean", position = "dodge") + xlab("Class") + ylab("Miles per gallon (Highway)") + labs(fill = "Cylinders", title = "Super nice viridis barplot about cars with reversed cylinders factor") + scale_fill_viridis(discrete = TRUE)
+
+snvbpacwrcf
+```
+
+
