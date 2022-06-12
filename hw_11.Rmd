@@ -8,14 +8,48 @@ output:
 
 All examples should be done using ggplot2. Also, in all examples, the axes and the legend (if there is one) should be labeled appropriately using xlab, ylab, and labs. Please also try to color code your plots nicely if they contain multiple elements (viridis is always a good option, but the choice is on you).
 
+```{r message=FALSE, warning=FALSE}
+library(viridis)
+library(ggplot2)
+library(tidyverse)
+library(nycflights13)
+library(lvplot)
+library(scales)
+theme_set(theme_minimal())
+update_geom_defaults("bar", list(fill = "steelblue", alpha = 0.8))
+update_geom_defaults("point", list(color = "steelblue", alpha = 0.8, size = 2.6))
+update_geom_defaults("boxplot", list(fill = "steelblue", alpha = 0.8))
+data(diamonds)
+```
+
+
 ## 1) Explore the distribution ...
 ... of price in the diamonds data set using geom_histogram. Do you discover anything unusual or surprising? (Hint: Carefully think about the binwidth and make sure you try a wide range of values. Also, try to zoom into the price range by filtering the variable price.)
 
 [1 point]
 
 ```{r}
-
+summary(diamonds$price)
 ```
+
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = price)) +
+  geom_histogram(binwidth = 100) + xlab('Price') + labs(title = 'Diamonds: Price distribution') + ylab('Count')
+```
+
+There is a gap somewhere around 1,250. Let's have a closer look:
+
+```{r}
+diamonds %>% filter(price<1600 & price > 1400) %>% ggplot(mapping = aes(x = price)) +
+  geom_histogram(binwidth = 1) + xlab('Price') + labs(title = 'Diamonds: Price distribution (zoomed in)') + ylab('Count')
+```
+```{r}
+below_gap <- diamonds %>% filter(price<1500)
+above_gap <- diamonds %>% filter(price>1500)
+cat("There are no prices in the range between", max(below_gap$price)+1, "-", min(above_gap$price)-1)
+```
+
 
 ## 2) Use what you’ve learned ...
 ... to improve the visualization of the departure times of cancelled vs. non-cancelled flights from the seminar slides (in data set nycflights13 and using geom_freqpoly).  
@@ -23,7 +57,15 @@ All examples should be done using ggplot2. Also, in all examples, the axes and t
 [1 point]
 
 ```{r}
-
+nycflights13::flights %>% 
+  mutate(
+    cancelled = is.na(dep_time),
+    sched_hour = sched_dep_time %/% 100,
+    sched_min = sched_dep_time %% 100,
+    sched_dep_time = sched_hour + sched_min / 60
+  ) %>% 
+  ggplot(mapping = aes(sched_dep_time)) +
+      geom_density(mapping = aes(colour = cancelled, fill = cancelled), alpha = 0.2) + scale_colour_viridis(discrete = T) + scale_fill_viridis(discrete = T) + xlab('Scheduled Departure Time') + labs(title = 'Distributions cancelled vs. non-cancelled flights')
 ```
 
 ## 3) One problem with boxplots is ...
@@ -32,7 +74,7 @@ All examples should be done using ggplot2. Also, in all examples, the axes and t
 [1 point]
 
 ```{r}
-
+ggplot(diamonds, aes(x = cut, y = price)) + geom_lv(aes(fill = cut)) + xlab("Cut") + ylab("Price") + labs(fill = "Cut", title = "Diamonds: Price distributions by cut") + scale_fill_viridis(discrete = TRUE) + guides(fill = "none")
 ```
 
 ## 4) Create the same plot ...
@@ -41,7 +83,7 @@ All examples should be done using ggplot2. Also, in all examples, the axes and t
 [1 point]
 
 ```{r}
-
+ggplot(diamonds, aes(x = cut, y = price)) + geom_violin(aes(fill = cut)) + xlab("Cut") + ylab("Price") + labs(fill = "Cut", title = "Diamonds: Price distributions by cut") + scale_fill_viridis(discrete = TRUE) + guides(fill = "none")
 ```
 
 ## 5) Visualize the distribution ...
@@ -50,6 +92,9 @@ All examples should be done using ggplot2. Also, in all examples, the axes and t
 [1 point]
 
 ```{r}
+ggplot(diamonds, aes(x = cut_number(price, 5), y = carat)) + geom_violin(aes(fill = cut_number(price, 5))) + xlab("Price range") + ylab("Carat") + labs(title = "Diamonds: Carat distributions by price range") + scale_fill_viridis(discrete = TRUE) + guides(fill = "none") + scale_x_discrete(labels = function(x) format(x, scientific = FALSE))
+
+# still couldn't find a solution that let's me format the labels on the x axis if they are intervals
 
 ```
 
@@ -59,6 +104,9 @@ All examples should be done using ggplot2. Also, in all examples, the axes and t
 [2 points]
 
 ```{r}
-
+ggplot(diamonds, aes(x = cut, y = price)) + geom_violin(aes(fill = cut)) + facet_wrap(~ cut_number(carat, 6)) + xlab("Carat category") + ylab("Price") + labs(fill = "Cut", title = "Diamonds: Price distributions by cut and carat category") + scale_fill_viridis(discrete = TRUE) + theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        legend.position = "bottom")
 ```
 
