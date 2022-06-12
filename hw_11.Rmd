@@ -1,0 +1,64 @@
+---
+title: "H11 - Exploratory Data Analysis"
+author: "Dominik Pegler"
+output:
+  html_document:
+    df_print: paged
+---
+
+All examples should be done using ggplot2. Also, in all examples, the axes and the legend (if there is one) should be labeled appropriately using xlab, ylab, and labs. Please also try to color code your plots nicely if they contain multiple elements (viridis is always a good option, but the choice is on you).
+
+## 1) Explore the distribution ...
+... of price in the diamonds data set using geom_histogram. Do you discover anything unusual or surprising? (Hint: Carefully think about the binwidth and make sure you try a wide range of values. Also, try to zoom into the price range by filtering the variable price.)
+
+[1 point]
+
+```{r}
+
+```
+
+## 2) Use what you’ve learned ...
+... to improve the visualization of the departure times of cancelled vs. non-cancelled flights from the seminar slides (in data set nycflights13 and using geom_freqpoly).  
+
+[1 point]
+
+```{r}
+
+```
+
+## 3) One problem with boxplots is ...
+... that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of outlying values. One approach to remedy this problem is the letter value plot. Install the lvplot package, and try using geom_lv to display the distribution of price vs. cut (from data set diamonds).  
+
+[1 point]
+
+```{r}
+
+```
+
+## 4) Create the same plot ...
+... as in example (3), but this time use geom_violin instead of geom_lv. 
+
+[1 point]
+
+```{r}
+
+```
+
+## 5) Visualize the distribution ...
+... of carat, for several price ranges in one diagram using geom_density. (Hint: Use "cut_number(price,5)" to partition the price range into 5 levels.) 
+
+[1 point]
+
+```{r}
+
+```
+
+## 6) Combine two of the techniques ...
+... you’ve learned to visualize the combined distribution of cut, carat, and price (from data set diamonds). You can be creative. If you are unsure whether your graph is a good visualization, you may give a second example.
+
+[2 points]
+
+```{r}
+
+```
+
