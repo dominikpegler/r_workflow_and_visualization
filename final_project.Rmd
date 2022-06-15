@@ -1,19 +1,11 @@
 ---
-title: "Final_project"
-output: html_notebook
----
-
----
 title: "Final project"
-author: "Andreas Gartus and Christina Krumpholz"
+author: "Dominik Pegler"
 date: "13 Juni 2022"
 output: html_document
 ---
 
-## This final project is making use of (slightly modified ;-) real data. Do not distribute these data in any way!
-Go through every step. If you're struggling with one task or you're not sure if it is correct, contact us. 
 
-First, we will need the following packages, so make sure they are installed and loaded. 
 ```{r}
 library(tidyverse)
 library(ggpubr)
@@ -25,49 +17,106 @@ Download the two datasets from Moodle (folder "Data for final project") and load
 *Important note: The datasets contain 7-point rating scales. Are these scales coded the same way (i.e., from 1 to 7, 0 to 6, or from -3 to +3) in both datasets? If not, you have to correct them to range from 1 to 7! (Hint: If you add a variable "dataset" which can be "A" or "B" and identifies the original data set, you can easily do the change later - which might be easier.)*
 *Also note that the ratings in dataset B contain some missing values because participants were allowed to occasionally skip ratings!*
 
+```{r}
+df_1 <- read_csv("data_final_project/data_24_06_1.csv", show_col_types = FALSE)
+df_2 <- read_csv("data_final_project/data_24_06_2.csv", show_col_types = FALSE)
+```
+#### Check if column names are same in both datasets
+```{r}
+names(df_1) == names(df_2)
+```
+
+#### merge datasets
+
+```{r}
+df_2$subject_code <- as.character(df_2$subject_code)
+df_1$dataset <- 1
+df_2$dataset <- 2
+df <- bind_rows(df_1, df_2)
+```
+
+```{r}
+names(df)
+```
+```{r}
+cols <- c("start_time", "Gender", "Age", "subject_code", "LanguageSkills", "sonstige", "CountryNow", "Feedback", "SexualOrientation")
+df <- df[df$completed == "yes",]
+df
+```
+
 
 ### Exercise 2 (1 point) 
 The following columns contain important information (Subject number, rating scale responses, Trial IDs etc.): 2,3,4,6,8,10,12,14,16,18,24,26,31,33,39,41,52,54,58,60,65,67,79. Please create a new dataframe containing (only) these columns.  
 *Note: Don't forget to also keep your new variable "dataset" (if you chose to create it)!*
 
+```{r}
+problems()
+```
 
 ### Exercise 3 (1 point) 
 In the dataframe you just created, you'll find a column called "Task_Name", which indicates each task of the experiment, e.g., in Task "VideoPresentationRating" participants were presented with a video first, which they had to rate in the following.  
 For further steps, we will only use rows with value "VideoPresentationRating" or "PicturePresentationRating" in the column "Task_Name". Please remove all other rows and save the resulting subset (now 8240 rows).
 
+```{r}
+
+```
 
 ### Exercise 4 (2 points) 
 The dataset contains 18 rating response variables, 9 variables each for pictures and videos. Create for every of these 9 variable pairs a new variable with values from both variables (e.g. "AttractivenessPicture" and "AttractivenessVideo" become a new variable "Attractiveness", containing values from "AttractivenessPicture" and "AttractivenessVideo").  
 *Note: when there is a response in one variable, the other one should be "NA". You can get rid of the NA, we're only interested in the actual response from the one variable in this case.*
 
+```{r}
+
+```
 
 ### Exercise 5 (3 points) 
 Get summary statistics for all the variables you have just created (at least: min, max, mean, sd).  
 *Note: Here at the latest, you should check whether the ratings are coded the same way in both datasets and correct them if not! BTW: Why is "n" different between the rating scales? How many missing values do we have in the rating scales?*
 
+```{r}
+
+```
 
 ### Exercise 6 (2 points) 
 Create boxplots for all of these 9 variables within one figure.  
 *Note: You might need to change the dataset format for this...*
 
+```{r}
+
+```
 
 ### Exercise 7 (2 points) 
 Use the library "corrplot" to visualize the correlations between the 9 rating response variables
 
+```{r}
+
+```
 
 ### Exercise 8 (2 points) 
 Create a scatter plot for the two of the 9 variables that show the highest correlation. Since the variables only have values from 1 to 7, there is massive overplotting. Add jitter to improve the plot. Make sure that all 7 possible values of the rating scales are labeled on the axes. Also add a linear regression line. 
 
+```{r}
+
+```
 
 ### Exercise 9 (1 point) 
 Now split the figure from example 6 so that every boxplot has its own little figure.
 
+```{r}
+
+```
 
 ### Exercise 10 (2 points)
 The variable Block_Name is actually a grouping variable. Use it to create similar boxplots as in exercise 9, but now every little figure should contain two boxplots: one for VideoBlock and one for Picture Block. Our goal is to compare these two blocks (which are actually two groups) with each other. 
 
+```{r}
+
+```
 
 ### Exercise 11 (2 points)
 Do some other exploratory plots with the dataset according to your taste, e.g. violin instead of box plots, or if you like even more sophisticated things using additional libraries. Explain why you did these.
 
+```{r}
+
+```
 

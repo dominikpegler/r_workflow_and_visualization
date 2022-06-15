@@ -1,3 +1,6 @@
+# do not share this data
+data_final_project/*
+
 # History files
 .Rhistory
 .Rapp.history
